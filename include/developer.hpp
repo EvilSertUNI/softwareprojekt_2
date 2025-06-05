@@ -1,0 +1,5 @@
+#ifndef DEVELOPER_6R3TPVVW_HPP
+#define MYCLASS_6R3TPVVW_HPP
+
+
+#endif
