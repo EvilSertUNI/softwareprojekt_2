@@ -8,7 +8,7 @@
 int main() {
     std::vector<std::shared_ptr<Developer>> developers;
 
-    auto junior = std::make_shared<JuniorDeveloper>("Ferdinand Laybach", "EvilSert");
+    auto junior = std::make_shared<JuniorDeveloper>("Ferdinand Leybach", "EvilSert");
     auto senior = std::make_shared<SeniorDeveloper>("Simon Straub", "der Allgäuer");
 
     try {
