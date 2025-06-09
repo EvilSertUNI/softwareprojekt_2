@@ -1,29 +1,30 @@
 cmake_minimum_required(VERSION 3.20)
+project(Softwareprojekt_2)
 
-project(Softwareprojekt_2 VERSION 1.0 LANGUAGES CXX)
-
+# Use modern C++ standard
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Enable strict compiler warnings
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
 
-# add compile options
-add_compile_options(-Wall -Wextra -pedantic -O0)
+# Define logo path as a compile-time constant
+add_definitions(-DDEV_LOGO_PATH=\"${CMAKE_SOURCE_DIR}/logos/\")
 
-# add a library for your student structure
-add_library(Developer src/developer.cpp)
+# Include header files from the include directory
+include_directories(include)
 
-# add the includes to the library
-target_include_directories(Developer PUBLIC include)
+# Build the shared developer library
+add_library(developer_lib
+    src/developer.cpp
+    src/junior_developer.cpp
+    src/senior_developer.cpp
+)
 
-# assign files to executable
-add_executable(sample_exec src/main.cpp)
+# Build the main application executable
+add_executable(main_app
+    src/main.cpp
+)
 
-# add include directrories to executable
-target_include_directories(sample_exec PUBLIC include)
-
-# link libraries
-target_link_libraries(sample_exec PUBLIC Developer)
-
-
-
-
+# Link the main application with the developer library
+target_link_libraries(main_app developer_lib)
