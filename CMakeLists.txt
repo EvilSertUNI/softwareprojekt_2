@@ -28,3 +28,15 @@ add_executable(main_app
 
 # Link the main application with the developer library
 target_link_libraries(main_app developer_lib)
+
+#Add Google Test
+
+find_package(GTest REQUIRED) 
+
+include(GoogleTest)
+
+add_executable(tests tests/test_developer.cpp )
+
+target_link_libraries(tests developer_lib GTest::gtest GTest::gtest_main)
+
+gtest_discover_tests(tests)

@@ -10,7 +10,7 @@ int main() {
 
     // Instantiate developers dynamically (via shared_ptr)
     auto junior = std::make_shared<JuniorDeveloper>("Ferdinand Leybach", "EvilSert");
-    auto senior = std::make_shared<SeniorDeveloper>("Simon Straub", "The Allgäuer");
+    auto senior = std::make_shared<SeniorDeveloper>("Simon Straub", "Der Allgäuer");
 
     // Load their logos from text files (throws runtime_error if not found)
     try {
