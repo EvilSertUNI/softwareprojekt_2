@@ -24,7 +24,7 @@ int main(int argc, char **argv) {
 
     // Since a missing logo does not prevent the developer from
     // solving the problem, only a warning is issued, so that the
-    // ömore important task can be executed.
+    // more important task can be executed.
     try {
         junior->load_logo_from_file("junior_logo.txt");
     } catch (const std::runtime_error& e) {
@@ -41,6 +41,11 @@ int main(int argc, char **argv) {
     auto senior = std::make_shared<SeniorDeveloper>("Simon Straub", "Der Allgäuer");
     try {
         senior->load_logo_from_file("senior_logo.txt");
+    } catch (const std::runtime_error& e) {
+        std::cerr << "Warning loading logo: " << e.what() << std::endl;
+    }
+    try {
+        senior->load_logo_from_file("senior_preferred_logo.txt");
     } catch (const std::runtime_error& e) {
         std::cerr << "Warning loading logo: " << e.what() << std::endl;
     }
