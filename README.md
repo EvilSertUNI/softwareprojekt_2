@@ -2,3 +2,4 @@
 
 ## Anmerkungen
 - Der Code wurde lediglich mit normalen Kommentaren kommentiert, da ich selber noch keine Doxygen Umgebung am Laufen habe und somit nicht sehen kann was ich dokumentiere.
+- Die Konstruktion mit dem "preferred_logo..." bezieht sich darauf, dass bei einem Betriebssystem logos oder icons in einem vom Nutzer nicht änderbaren Ordner geespeichert werden (z.B. /usr/share/icons). So sollte man es natürlich auch machen wenn man dieses Programm in der echten Welt implementieren würde. Um dem User der Software trotzdem eine Möglichkeit zu geben, diese Logos zu manipulieren gibt es deswegen das "preferred_logo", da das Andere "festgeschrieben" ist. In einem echten Programm würde man ja vielleicht noch mehr "junior-" oder "senior-" Developer haben, welchen man dann einfach das "normale", in ihrer Angabe das <potential logo>, zuweißt. 
