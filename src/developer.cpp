@@ -13,6 +13,7 @@ void Developer::drink_coffee() {
 }
 
 // Loads logo content from file into logo string
+
 void Developer::load_logo_from_file(const std::string& filename) {
     std::ifstream file(DEV_LOGO_PATH + filename);
     if (!file) {
@@ -20,6 +21,17 @@ void Developer::load_logo_from_file(const std::string& filename) {
     }
     logo.assign((std::istreambuf_iterator<char>(file)),
                 std::istreambuf_iterator<char>());
+    int remove_ws = 0;
+    for (int ofs=logo.length() - 1; ofs > 0; --ofs) {
+        if (logo[ofs] == '\n') {
+            ++remove_ws;
+            continue;
+        }
+        break;
+    } 
+    if (remove_ws) {
+        logo.resize(logo.length() - remove_ws);
+    } 
 }
 
 // Getter methods
@@ -30,6 +42,7 @@ std::string Developer::get_logo() const { return logo; }
 // Stream output operator: Prints logo, name, and alias
 std::ostream& operator<<(std::ostream& os, const Developer& dev) {
     if (!dev.logo.empty()) {
+
         os << dev.logo << std::endl;
     }
     os << "Name: " << dev.name << std::endl;

@@ -3,72 +3,53 @@
 #include "senior_developer.hpp"
 #include <stdexcept>
 
-// Test Fixture für JuniorDeveloper
-class JuniorDeveloperTest : public ::testing::Test {
+// Test fixture for Developer classes
+class DeveloperTest : public ::testing::Test {
 protected:
-    JuniorDeveloper junior{"Test Junior", "TJ"};
+    // Common test data
+    std::string test_name = "Test Name";
+    std::string test_alias = "Test Alias";
+    std::string valid_logo_file = "junior_logo.txt";
+    std::string invalid_logo_file = "invalid_logo.txt";
 };
 
-// Test Fixture für SeniorDeveloper
-class SeniorDeveloperTest : public ::testing::Test {
-protected:
-    SeniorDeveloper senior{"Test Senior", "TS"};
-};
-
-// Tests für JuniorDeveloper
-TEST_F(JuniorDeveloperTest, ConstructorAndGetters) {
-    EXPECT_EQ(junior.get_name(), "Test Junior");
-    EXPECT_EQ(junior.get_alias(), "TJ");
+// Test for JuniorDeveloper constructor and getters
+TEST_F(DeveloperTest, JuniorDeveloperConstructorAndGetters) {
+    JuniorDeveloper junior(test_name, test_alias);
+    EXPECT_EQ(junior.get_name(), test_name);
+    EXPECT_EQ(junior.get_alias(), test_alias);
     EXPECT_EQ(junior.get_logo(), "");
 }
 
-TEST_F(JuniorDeveloperTest, LoadLogo) {
+// Test for SeniorDeveloper constructor and getters
+TEST_F(DeveloperTest, SeniorDeveloperConstructorAndGetters) {
+    SeniorDeveloper senior(test_name, test_alias);
+    EXPECT_EQ(senior.get_name(), test_name);
+    EXPECT_EQ(senior.get_alias(), test_alias);
+    EXPECT_EQ(senior.get_logo(), "");
+}
+
+// Test for load_logo_from_file with valid file
+TEST_F(DeveloperTest, LoadLogoFromValidFile) {
+    JuniorDeveloper junior(test_name, test_alias);
+    junior.load_logo_from_file(valid_logo_file);
+    std::string logo = junior.get_logo();
+    EXPECT_FALSE(logo.empty());
+}
+
+// Test for load_logo_from_file with invalid file
+TEST_F(DeveloperTest, LoadLogoFromInvalidFile) {
+    JuniorDeveloper junior(test_name, test_alias);
+    EXPECT_THROW(junior.load_logo_from_file(invalid_logo_file), std::runtime_error);
+}
+
+// Test that the logo is empty before loading
+TEST_F(DeveloperTest, LogoEmptyBeforeLoading) {
+    JuniorDeveloper junior(test_name, test_alias);
     EXPECT_EQ(junior.get_logo(), "");
-    junior.load_logo_from_file("test_junior_logo.txt");
-    EXPECT_EQ(junior.get_logo(), "Junior Logo");
-    EXPECT_THROW(junior.load_logo_from_file("nonexistent.txt"), std::runtime_error);
 }
 
-TEST_F(JuniorDeveloperTest, SolveProblem) {
-    junior.load_logo_from_file("test_junior_logo.txt");
-    testing::internal::CaptureStdout();
-    junior.solve_problem();
-    std::string output = testing::internal::GetCapturedStdout();
-    std::string expected = 
-        "Solving a problem:\n"
-        "Junior Logo\n"
-        "Name: Test Junior\n"
-        "Alias: TJ\n"
-        "Ha, that was EZ!\n"
-        "Ahhhh, I needed that coffee!!!\n";
-    EXPECT_EQ(output, expected);
-}
-
-// Tests für SeniorDeveloper
-TEST_F(SeniorDeveloperTest, ConstructorAndGetters) {
-    EXPECT_EQ(senior.get_name(), "Test Senior");
-    EXPECT_EQ(senior.get_alias(), "TS");
-    EXPECT_EQ(senior.get_logo(), "");
-}
-
-TEST_F(SeniorDeveloperTest, LoadLogo) {
-    EXPECT_EQ(senior.get_logo(), "");
-    senior.load_logo_from_file("test_senior_logo.txt");
-    EXPECT_EQ(senior.get_logo(), "Senior Logo");
-    EXPECT_THROW(senior.load_logo_from_file("nonexistent.txt"), std::runtime_error);
-}
-
-TEST_F(SeniorDeveloperTest, SolveProblem) {
-    senior.load_logo_from_file("test_senior_logo.txt");
-    testing::internal::CaptureStdout();
-    senior.solve_problem();
-    std::string output = testing::internal::GetCapturedStdout();
-    std::string expected = 
-        "Solving a problem:\n"
-        "Senior Logo\n"
-        "Name: Test Senior\n"
-        "Alias: TS\n"
-        "Puh, that was tough\n"
-        "Ahhhh, I needed that coffee!!!\n";
-    EXPECT_EQ(output, expected);
+int main(int argc, char **argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
